@@ -6,13 +6,11 @@ function updateDisplay(){
 let variable = 0;
 let operator = "";
 let x = "";
-let y = 0;
 let currentNumber = ""
 function clearAll(){
     displayScreen = ""
     variable = ""
     x = ""
-    y = ""
     operator = ""
     a = ""
     b = ""
@@ -70,16 +68,13 @@ function zero(){
     updateDisplay();
 }
 function add(){
-    // x = variable;
     operator = "+";
     displayScreen += "+"
     updateDisplay();
     x = currentNumber;
     currentNumber = "";
-
 }
 function subtract(){
-    // x = variable;
     operator = "-"
     displayScreen += "-"
     updateDisplay();
@@ -87,39 +82,54 @@ function subtract(){
     currentNumber = ""
 }
 function multiply(){
-    x = variable;
     operator = "*"
     displayScreen += "*"
     updateDisplay();
+    x = currentNumber;
+    currentNumber = ""
 }
 function divide(){
-    x = variable;
     operator = "/";
     displayScreen += "/";
     updateDisplay();
+    x = currentNumber;
+    currentNumber = ""
 }
 let answerAdd = 0
+let answerSub = 0
+let answerMult = 0
+let answerDiv = 0
+
 function equals(){
     let a = parseInt(x);
     let b = parseInt(currentNumber);
-    if (operator = "+"){
-        answerAdd = a + b;
-        answerDisplay(answerAdd);
-    } else if (operator = "-"){
-        answerSub = (a - b);
-        answerDisplay(answerSub);
-    } else if (operator = "*"){
-        answerMult = (a*b);
-        answerDisplay(answerMult);
-    } else if (operator = "/"){
-        answerDiv = (a/b);
+    if (isNaN(b)){
+        alert("The problem isn't complete. Try again!")
     } else {
-        console.log("error")
+        if (operator === "+"){
+            answerAdd = (a + b);
+            answerDisplay(answerAdd);
+        } else if (operator === "-"){
+            answerSub = (a - b);
+            answerDisplay(answerSub);
+        } else if (operator === "*"){
+            answerMult = (a*b);
+            answerDisplay(answerMult);
+        } else if (operator === "/"){
+            if (b === 0){
+                alert("You cannot divide by zero!")
+            } else {
+            answerDiv = a / b;
+            answerDisplay(Math.round(answerDiv * 100) / 100);
+            }
+        } else {
+            console.log("error")
+        }
     }
 }
-function answerDisplay(x){
+function answerDisplay(z){
     const answerString = document.querySelector(".numberDisplay")
-    answerString.innerHTML = x;
+    answerString.innerHTML = z;
 }
 // const add = function(x,y) {
 // 	let answerAdd = x + y;
