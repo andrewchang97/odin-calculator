@@ -4,16 +4,20 @@ function updateDisplay(){
     displayString.innerHTML = displayScreen
 }
 let variable = 0;
-let operator = "";
-let x = "";
-let currentNumber = ""
-function clearAll(){
+let operator = ""; //decides which function to use in calculation
+let x = ""; //x is the first variable in the calculation
+let currentNumber = "" //current number is the number that the user is editing at any moment
+let i = 0; //i will decide if it's the first calculation in the session
+let j = 0; //j will decide if there are multiple calculations on the screen
+function clearAll(){ //will clear all variables in the calculator, as if it's been refreshed
     displayScreen = ""
     variable = ""
     x = ""
     operator = ""
     a = ""
     b = ""
+    i = 0
+    j = 0
     currentNumber = ""
     updateDisplay()
 }
@@ -67,35 +71,96 @@ function zero(){
     currentNumber +="0"
     updateDisplay();
 }
-function add(){
-    operator = "+";
-    displayScreen += "+"
-    updateDisplay();
-    x = currentNumber;
-    currentNumber = "";
+function add(){ //function for the add button. If adding, it switches operator to + and current number is put to the x variable.
+    //when a number function is added, it changes current number to x, and then current number is blank
+    if (j === 0){
+        if (i === 0){
+            operator = "+";
+            displayScreen += "+"
+            updateDisplay();
+            x = currentNumber;
+            currentNumber = "";
+            j++; //j will decide if more than one equation is on the page at one time
+        } else { //this is used if there's already been a calculation and it needs to take the last answer
+            operator = "+";
+            x = answer; //x is equal to the last answer
+            answer = 0;
+            currentNumber = "";
+            displayScreen += "+"
+            updateDisplay();
+            j++;
+        }
+    } else {
+        alert("Please calculate before continuing")
+    }
 }
 function subtract(){
-    operator = "-"
-    displayScreen += "-"
-    updateDisplay();
-    x = currentNumber;
-    currentNumber = ""
+    if (j === 0){
+        if (i === 0){
+            operator = "-"
+            displayScreen += "-"
+            updateDisplay();
+            x = currentNumber;
+            currentNumber = ""
+            j++;
+        } else {
+            operator = "-";
+            x = answer;
+            answer = 0;
+            currentNumber = "";
+            displayScreen += "-"
+            updateDisplay();
+            j++;
+        }
+    } else {
+        alert("Please calculate before continuing")
+    }
 }
 function multiply(){
-    operator = "*"
-    displayScreen += "*"
-    updateDisplay();
-    x = currentNumber;
-    currentNumber = ""
+    if (j === 0){
+        if (i === 0){
+            operator = "*"
+            displayScreen += "*"
+            updateDisplay();
+            x = currentNumber;
+            currentNumber = ""
+            j++;
+        } else {
+            operator = "*";
+            x = answer;
+            displayScreen += "*"
+            updateDisplay();
+            currentNumber = "";
+            answer = 0;
+            j++;
+        }
+    } else {
+        alert("Please calculate before continuing")
+    }
 }
 function divide(){
-    operator = "/";
-    displayScreen += "/";
-    updateDisplay();
-    x = currentNumber;
-    currentNumber = ""
+    if (j === 0){
+        if (i === 0){
+            operator = "/"
+            displayScreen += "/"
+            updateDisplay();
+            x = currentNumber;
+            currentNumber = ""
+            j++;
+        } else {
+            operator = "/";
+            x = answer;
+            answer = 0;
+            currentNumber = "";
+            displayScreen += "/"
+            updateDisplay();
+            j++;
+        }
+    } else {
+        alert("Please calculate before continuing")
+    }
 }
-let answerAdd = 0
+let answerAdd = 0 //just to establish that these values are 0 beforehand
 let answerSub = 0
 let answerMult = 0
 let answerDiv = 0
@@ -105,22 +170,46 @@ function equals(){
     let b = parseInt(currentNumber);
     if (isNaN(b)){
         alert("The problem isn't complete. Try again!")
+    } else if (isNaN(a)){
+        alert("The problem isn't complete. Try again!")
     } else {
         if (operator === "+"){
             answerAdd = (a + b);
-            answerDisplay(answerAdd);
+            answer = answerAdd;
+            answerDisplay(answer);
+            answerAdd = 0;
+            displayScreen = answer;
+            i++;
+            j = 0;
         } else if (operator === "-"){
             answerSub = (a - b);
-            answerDisplay(answerSub);
+            answer = answerSub;
+            answerDisplay(answer);
+            answerSub = 0;
+            displayScreen = answer;
+            i++;
+            j = 0;
         } else if (operator === "*"){
             answerMult = (a*b);
-            answerDisplay(answerMult);
+            answer = answerMult;
+            answerDisplay(answer);
+            answerMult = 0;
+            displayScreen = answer;
+            i++;
+            j = 0;
         } else if (operator === "/"){
             if (b === 0){
                 alert("You cannot divide by zero!")
             } else {
             answerDiv = a / b;
-            answerDisplay(Math.round(answerDiv * 100) / 100);
+            answerDivTwo = Math.round(answerDiv * 1000) / 1000;
+            answer = answerDivTwo;
+            answerDivTwo = 0;
+            answerDiv = 0;
+            answerDisplay(answer);
+            displayScreen = answer;
+            i++;
+            j = 0;
             }
         } else {
             console.log("error")
@@ -131,12 +220,7 @@ function answerDisplay(z){
     const answerString = document.querySelector(".numberDisplay")
     answerString.innerHTML = z;
 }
-// const add = function(x,y) {
-// 	let answerAdd = x + y;
-//   return answerAdd;
-// };
-
-// const subtract = function(x,y) {
-// 	let answerSubt = x - y;
-//   return answerSubt;
-// };
+// function back(){
+//     lastEntry = currentNumber.endsWith()
+//     if (currentNumber)
+// }
