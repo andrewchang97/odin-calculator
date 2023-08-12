@@ -83,7 +83,6 @@ function add(){ //function for the add button. If adding, it switches operator t
             x = currentNumber;
             currentNumber = "";
             j++; //j will decide if more than one equation is on the page at one time
-            k++;
         } else { //this is used if there's already been a calculation and it needs to take the last answer
             operator = "+";
             x = answer; //x is equal to the last answer
@@ -92,7 +91,6 @@ function add(){ //function for the add button. If adding, it switches operator t
             displayScreen += "+"
             updateDisplay();
             j++;
-            k++;
         }
     } else {
         alert("Please calculate before continuing")
@@ -107,7 +105,6 @@ function subtract(){
             x = currentNumber;
             currentNumber = ""
             j++;
-            k++;
         } else {
             operator = "-";
             x = answer;
@@ -116,7 +113,6 @@ function subtract(){
             displayScreen += "-"
             updateDisplay();
             j++;
-            k++;
         }
     } else {
         alert("Please calculate before continuing")
@@ -131,16 +127,14 @@ function multiply(){
             x = currentNumber;
             currentNumber = ""
             j++;
-            k++;
         } else {
             operator = "*";
             x = answer;
+            answer = 0;
+            currentNumber = "";
             displayScreen += "*"
             updateDisplay();
-            currentNumber = "";
-            answer = 0;
             j++;
-            k++;
         }
     } else {
         alert("Please calculate before continuing")
@@ -155,7 +149,6 @@ function divide(){
             x = currentNumber;
             currentNumber = ""
             j++;
-            k++;
         } else {
             operator = "/";
             x = answer;
@@ -164,7 +157,6 @@ function divide(){
             displayScreen += "/"
             updateDisplay();
             j++;
-            k++;
         }
     } else {
         alert("Please calculate before continuing")
@@ -179,16 +171,14 @@ function equals(){
     let a = parseInt(x);
     let b = parseInt(currentNumber);
     k = 0;
-    if (isNaN(b)){
-        alert("The problem isn't complete. Try again!")
-    } else if (isNaN(a)){
+    if (isNaN(b) || currentNumber === ""){
         alert("The problem isn't complete. Try again!")
     } else {
         if (operator === "+"){
             answerAdd = (a + b);
             answer = answerAdd;
             answerDisplay(answer);
-            answerAdd = 0;
+            // answerAdd = 0;
             displayScreen = answer;
             i++;
             j = 0;
@@ -196,7 +186,7 @@ function equals(){
             answerSub = (a - b);
             answer = answerSub;
             answerDisplay(answer);
-            answerSub = 0;
+            // answerSub = 0;
             displayScreen = answer;
             i++;
             j = 0;
@@ -204,7 +194,7 @@ function equals(){
             answerMult = (a*b);
             answer = answerMult;
             answerDisplay(answer);
-            answerMult = 0;
+            // answerMult = 0;
             displayScreen = answer;
             i++;
             j = 0;
@@ -233,22 +223,21 @@ function answerDisplay(z){
 }
 function back(){
 //having trouble knowing how to go about the back button
-        let lastEntry = displayScreen;
-        let lastCheck = displayScreen.charAt(displayScreen.charAt(length))
-        console.log(lastCheck)
-        if (lastCheck === 1, 2, 3, 4, 5, 6, 7, 8, 9){
+    let lastEntry = displayScreen;
+    let lastCheck = displayScreen.charAt(lastEntry.length - 1);
+
+    if (/[0-9]/.test(lastCheck)){
         displayScreen = lastEntry.slice(0,-1);
         currentNumber = lastEntry.slice(0,-1);
         updateDisplay();    
-        // console.log(lastCheck)
-        } else if (lastCheck === "+", "-", "*", ["/"]) {
-            alert("pah")
-        // displayScreen = lastEntry.slice(0,-1);
-        // currentNumber = lastEntry.slice(0,-1);
-        // operator = "";
-        // j--;
+    } else if (/[+\-*/]/.test(lastCheck)) {
+        displayScreen = lastEntry.slice(0,-1);
+        currentNumber = "";
+        operator = "";
+        x = currentNumber;
+        j--;
         updateDisplay();
-        } else {
-            alert("bingo")
-        }
+    } else {
+            alert("Can't go back further")
+    }
     }
