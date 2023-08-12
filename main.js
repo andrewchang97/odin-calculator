@@ -9,6 +9,8 @@ let x = ""; //x is the first variable in the calculation
 let currentNumber = "" //current number is the number that the user is editing at any moment
 let i = 0; //i will decide if it's the first calculation in the session
 let j = 0; //j will decide if there are multiple calculations on the screen
+let k = 0; //k will decide where the back button works
+let l = 0; //l will also decide where back button works
 function clearAll(){ //will clear all variables in the calculator, as if it's been refreshed
     displayScreen = ""
     variable = ""
@@ -81,6 +83,7 @@ function add(){ //function for the add button. If adding, it switches operator t
             x = currentNumber;
             currentNumber = "";
             j++; //j will decide if more than one equation is on the page at one time
+            k++;
         } else { //this is used if there's already been a calculation and it needs to take the last answer
             operator = "+";
             x = answer; //x is equal to the last answer
@@ -89,6 +92,7 @@ function add(){ //function for the add button. If adding, it switches operator t
             displayScreen += "+"
             updateDisplay();
             j++;
+            k++;
         }
     } else {
         alert("Please calculate before continuing")
@@ -103,6 +107,7 @@ function subtract(){
             x = currentNumber;
             currentNumber = ""
             j++;
+            k++;
         } else {
             operator = "-";
             x = answer;
@@ -111,6 +116,7 @@ function subtract(){
             displayScreen += "-"
             updateDisplay();
             j++;
+            k++;
         }
     } else {
         alert("Please calculate before continuing")
@@ -125,6 +131,7 @@ function multiply(){
             x = currentNumber;
             currentNumber = ""
             j++;
+            k++;
         } else {
             operator = "*";
             x = answer;
@@ -133,6 +140,7 @@ function multiply(){
             currentNumber = "";
             answer = 0;
             j++;
+            k++;
         }
     } else {
         alert("Please calculate before continuing")
@@ -147,6 +155,7 @@ function divide(){
             x = currentNumber;
             currentNumber = ""
             j++;
+            k++;
         } else {
             operator = "/";
             x = answer;
@@ -155,6 +164,7 @@ function divide(){
             displayScreen += "/"
             updateDisplay();
             j++;
+            k++;
         }
     } else {
         alert("Please calculate before continuing")
@@ -168,6 +178,7 @@ let answerDiv = 0
 function equals(){
     let a = parseInt(x);
     let b = parseInt(currentNumber);
+    k = 0;
     if (isNaN(b)){
         alert("The problem isn't complete. Try again!")
     } else if (isNaN(a)){
@@ -220,7 +231,20 @@ function answerDisplay(z){
     const answerString = document.querySelector(".numberDisplay")
     answerString.innerHTML = z;
 }
-// function back(){
-//     lastEntry = currentNumber.endsWith()
-//     if (currentNumber)
-// }
+function back(){
+//having trouble knowing how to go about the back button
+        let lastEntry = displayScreen;
+        let lastCheck = displayScreen.charAt(displayScreen.charAt(length-1))
+        console.log(lastCheck)
+        if (lastCheck = [1, 2, 3, 4, 5, 6, 7, 8, 9]){
+        displayScreen = lastEntry.slice(0,-1);
+        currentNumber = lastEntry.slice(0,-1);
+        updateDisplay();    
+        } else if (lastCheck = ["+", "-", "*", "/"]) {
+        displayScreen = lastEntry.slice(0,-1);
+        currentNumber = lastEntry.slice(0,-1);
+        operator = "";
+        j--;
+        updateDisplay();
+        }
+    }
