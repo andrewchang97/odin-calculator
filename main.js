@@ -234,17 +234,21 @@ function answerDisplay(z){
 function back(){
 //having trouble knowing how to go about the back button
         let lastEntry = displayScreen;
-        let lastCheck = displayScreen.charAt(displayScreen.charAt(length-1))
+        let lastCheck = displayScreen.charAt(displayScreen.charAt(length))
         console.log(lastCheck)
-        if (lastCheck = [1, 2, 3, 4, 5, 6, 7, 8, 9]){
+        if (lastCheck === 1, 2, 3, 4, 5, 6, 7, 8, 9){
         displayScreen = lastEntry.slice(0,-1);
         currentNumber = lastEntry.slice(0,-1);
         updateDisplay();    
-        } else if (lastCheck = ["+", "-", "*", "/"]) {
-        displayScreen = lastEntry.slice(0,-1);
-        currentNumber = lastEntry.slice(0,-1);
-        operator = "";
-        j--;
+        // console.log(lastCheck)
+        } else if (lastCheck === "+", "-", "*", ["/"]) {
+            alert("pah")
+        // displayScreen = lastEntry.slice(0,-1);
+        // currentNumber = lastEntry.slice(0,-1);
+        // operator = "";
+        // j--;
         updateDisplay();
+        } else {
+            alert("bingo")
         }
     }
