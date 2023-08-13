@@ -73,6 +73,11 @@ function zero(){
     currentNumber +="0"
     updateDisplay();
 }
+function decimal(){
+    displayScreen +="."
+    currentNumber +="."
+    updateDisplay();
+}
 function add(){ //function for the add button. If adding, it switches operator to + and current number is put to the x variable.
     //when a number function is added, it changes current number to x, and then current number is blank
     if (j === 0){
@@ -226,17 +231,19 @@ function back(){
     let lastEntry = displayScreen;
     let lastCheck = displayScreen.charAt(lastEntry.length - 1);
 
-    if (/[0-9]/.test(lastCheck)){
+    if (/[0-9]/.test(lastCheck) && x === ""){
         displayScreen = lastEntry.slice(0,-1);
         currentNumber = lastEntry.slice(0,-1);
+        // x = currentNumber;
         updateDisplay();    
     } else if (/[+\-*/]/.test(lastCheck)) {
         displayScreen = lastEntry.slice(0,-1);
-        currentNumber = "";
+        currentNumber = displayScreen;
         operator = "";
         x = currentNumber;
         j--;
         updateDisplay();
+        console.log("pig")
     } else {
             alert("Can't go back further")
     }
