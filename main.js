@@ -173,8 +173,8 @@ let answerMult = 0
 let answerDiv = 0
 
 function equals(){
-    let a = parseInt(x);
-    let b = parseInt(currentNumber);
+    let a = parseFloat(x);
+    let b = parseFloat(currentNumber);
     k = 0;
     if (isNaN(b) || currentNumber === ""){
         alert("The problem isn't complete. Try again!")
@@ -244,7 +244,14 @@ function back(){
         j--;
         updateDisplay();
         console.log("pig")
-    } else {
+    } else if (/[0-9]/.test(lastCheck) && [x != ""]) {
+        displayScreen = lastEntry.slice(0, -1);
+        // currentNumber2 = lastEntry.slice(0, -1);
+        currentNumber = lastEntry.slice(0,0);
+        console.log(currentNumber); //figured out current number is the entire display, not just the y component
+        updateDisplay();
+    }
+    else {
             alert("Can't go back further")
     }
     }
