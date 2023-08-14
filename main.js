@@ -231,7 +231,7 @@ function back(){
     let lastEntry = displayScreen;
     let lastCheck = displayScreen.charAt(lastEntry.length - 1);
 
-    if (/[0-9]/.test(lastCheck) && x === ""){
+    if (/[0-9.]/.test(lastCheck) && x === ""){
         displayScreen = lastEntry.slice(0,-1);
         currentNumber = lastEntry.slice(0,-1);
         // x = currentNumber;
@@ -244,7 +244,7 @@ function back(){
         j--;
         updateDisplay();
         console.log("pig")
-    } else if (/[0-9]/.test(lastCheck) && [x != ""]) {
+    } else if (/[0-9.]/.test(lastCheck) && [x != ""]) {
         displayScreen = lastEntry.slice(0, -1);
         // currentNumber2 = lastEntry.slice(0, -1);
         currentNumber = lastEntry.slice(0,0);
